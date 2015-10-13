@@ -11,11 +11,10 @@ int main(void) {
 
 	int i = 0,
 		j = 0,
-		max = 0,
-		moda = 0,
-		flag = 0,
-		vhozdenie = 0,
-		chastota = 0;
+		maxNum = 0,
+		maxModa = 0,
+		flagModa = 0,
+		curModa = 0;
 
 	printf("Insert array A[], a number of elements = %d\n", N);
 
@@ -33,17 +32,7 @@ int main(void) {
 	}
 		
 	for (i = 0; i < N; i++) {
-		vhozdenie = 0;
-		for (j = 0; j < N; j++) {
-			if (A[i] == A[j]) {
-				vhozdenie++;
-				flag = 1;
-			}
-		}
-	
-		if (moda == chastota) {
-			flag = -1;
-		}
+		
 	}
 
 	printf("\nKolichestvo elementov = %d, Moda = %d\n", chastota, max);
