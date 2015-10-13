@@ -13,30 +13,42 @@ int main(void) {
 		j = 0,
 		max = 0,
 		moda = 0,
+		flag = 0,
+		vhozdenie = 0,
 		chastota = 0;
 
 	printf("Insert array A[], a number of elements = %d\n", N);
 
-	while (scanf("%d", &A[i++]) == 1 && i < N);
-
+	while(1){	
+		if(!scanf("%d", &A[i])){
+			printf("Wrong enter!\n");
+			printf("Insert array A[], a number of elements = %d\n", N);
+			fflush(stdin);
+			i = 0;
+		}
+		i++;
+		if(i == N){
+			break;
+		}
+	}
+		
 	for (i = 0; i < N; i++) {
-		chastota = 0;
+		vhozdenie = 0;
 		for (j = 0; j < N; j++) {
 			if (A[i] == A[j]) {
-				chastota++;
-			}	
+				vhozdenie++;
+				flag = 1;
+			}
 		}
-		if (chastota > moda) {
-			moda = chastota;
-		}
-		if (chastota == moda) {
-			max = A[i];
+	
+		if (moda == chastota) {
+			flag = -1;
 		}
 	}
 
-	printf("\nKolichestvo elementov = %d, Moda = %d\n", moda, max);
+	printf("\nKolichestvo elementov = %d, Moda = %d\n", chastota, max);
 
-	system("pause");
+	system("PAUSE");
 
 	return 0;
 }
