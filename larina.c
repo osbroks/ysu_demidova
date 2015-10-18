@@ -5,7 +5,6 @@
 (на соответствующем рисунке закрашена), определяемой по номеру строки i и номеру столбца j
 так, как показано на рисунке
 На печать вывести исходную и результирующую матрицы.
-
 0 1 1 1 1 1 1 1 1 1
 0 0 1 1 1 1 1 1 1 1
 0 0 0 1 1 1 1 1 1 1
@@ -17,7 +16,6 @@
 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0
-
 */
 
 #include<stdio.h>
@@ -26,49 +24,70 @@
 
 #define N 3
 
-int main(void){
+double Abs(double);
+
+int main(void) {
 	double ArrayA[N][N],
 		   ArrayB[N][N];
+
+	double tempI = 0,
+		   tempJ = 0,
+		   tempN = 0,
+		   tempM = 0,
+		   sum = 0;
+
 	int i = 0,
 		j = 0,
-		tempI = 0,
-		tempJ = 0,
-		sum = 0;
+		n = 0,
+		m = 0;
 
 	printf("Insert elements of Array\n");
-	for (i = 0; i < N; i++){
-		for (j = 0; j < N; j++){
-			if (!scanf("%ld", &ArrayA[i][j])){
-				printf("Wrong Insert");
+	for (i = 0; i < N; i++) {
+		for (j = 0; j < N; j++) {
+			if (!scanf("%lf", &ArrayA[i][j])) {
+				printf("Wrong Insert\n");
+				system("PAUSE");
 				return;
 			}
 		}
 	}
 
-	for (i = 0; i < N; i++){
-		tempI = i;
-		for (j = 0; j < N; j++){
-			for (){
-
-			}
-			ArrayB[i][j] = Abs(ArrayA[tempI - 1][tempJ - 1]) +
-						   Abs(ArrayA[tempI + 1][tempJ - 1]);
-			tempI--;
-			if (tempI <= 0){
-				ArrayB[i][j] = Abs(ArrayA[i][tempJ - 1]) +
-							   Abs(ArrayA[tempI + 1][tempJ - 1]);
-			}
-			else if (tempJ <= 0)
-
+	for (i = 0; i < N; i++) {
+		tempI = N;
+		for (j = 0; j < N; j++) {
+			tempJ = N;
+			for (n = 0; n < N; n++) {
+				for (m = 0; m < N; m++) {
+					if (tempI == 0) {
+						ArrayB[n][m] = ArrayA[0][j];
+					}
+					else if (tempJ == 0) {
+						ArrayB[n][m] = ArrayA[n - 1][0] + ArrayA[n - 1][m + 1];
+					}
+					else if (tempJ == N) {
+						ArrayB[n][m] = ArrayA[n - 1][m - 1] + ArrayA[n - 1][m];
+					}
+					ArrayB[n][m] = ArrayA[n - 1][m - 1] + ArrayA[n - 1][m + 1];
+					tempI--;
+					tempJ--;
+				}
 			}
 		}
 	}
 
+	for (i = 0; i < N; i++) {
+		for (j = 0; j < n; j++) {
+			printf("%lf ", ArrayB[i][j]);
+		}
+	}
 
+	system("PAUSE");
 	return 0;
 }
 
-double Abs(double tmp){
+double Abs(double tmp) {
 	if (tmp < 0)
 		tmp = -tmp;
+
+	return tmp;
 }
