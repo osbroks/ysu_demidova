@@ -1,11 +1,12 @@
 /*
-
+ГРОМАКОВ А. О. ИТ12
 Задана матрица А вещественных чисел Размера НхН (Н <= 20, задается как параметр).
 Построить по ней матрицу Б того же размера, элемент b(i,j) который равен
 !сумме модулей! всех этих элементов матрицы А, которые расположены в некоторой ее области
 (на соответствующем рисунке закрашена), определяемой по номеру строки i и номеру столбца j
 так, как показано на рисунке
 На печать вывести исходную и результирующую матрицы.
+
 0 1 1 1 1 1 1 1 1 1
 0 0 1 1 1 1 1 1 1 1
 0 0 0 1 1 1 1 1 1 1
@@ -32,7 +33,7 @@ system();
 int main(void) {
 
 	double ArrayA[N][N],
-		   ArrayB[N][N];
+		ArrayB[N][N];
 
 	double sum = 0;
 
@@ -42,14 +43,23 @@ int main(void) {
 		m = 0,
 		len = 0,
 		tempJ = -1,
-		tempN = 0,
-		tempM = 0;
-	
-	printf("Insert length of Array");
-	scanf("%d", &len);
+		tempN = 0;
+
+	printf("Insert length of Array: ");
+	if (!scanf("%d", &len)) {
+		printf("Error!");
+		system("PAUSE");
+		return;
+	}
+
+	while (len >= 21) {
+		printf("\n1 <= Length <= 20\n");
+		scanf("%d", &len);
+		fflush(stdin);
+	}
 
 	for (i = 0; i < N; i++) {
-		for(j = 0; j < N; j++) {
+		for (j = 0; j < N; j++) {
 			ArrayB[i][j] = 0;
 			ArrayA[i][j] = 0;
 		}
@@ -68,24 +78,22 @@ int main(void) {
 
 	for (i = 0; i < len; i++) {
 		for (j = 0; j < len; j++) {
-			for (n = i,tempJ=-1; n >= 0; n--) {
-
-                tempJ++;
-				if ((j - tempJ) < 0){
-				
+			for (n = i, tempJ = -1; n >= 0; n--) {
+				tempJ++;
+				if ((j - tempJ) < 0) {
 					m = 0;
 				}
 				else {
 					m = j - tempJ;
 				}
-				if((j+tempJ) >len-1){
-					tempN = len-1;
+				if ((j + tempJ) >len - 1) {
+					tempN = len - 1;
 				}
 				else {
 					tempN = j + tempJ;
 				}
 				for (; m <= tempN; m++) {
-					ArrayB[i][j] += Abs(ArrayA[n][m]); 
+					ArrayB[i][j] += Abs(ArrayA[n][m]);
 				}
 			}
 		}
