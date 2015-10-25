@@ -1,4 +1,5 @@
 /*
+
 Задана матрица А вещественных чисел Размера НхН (Н <= 20, задается как параметр).
 Построить по ней матрицу Б того же размера, элемент b(i,j) который равен
 !сумме модулей! всех этих элементов матрицы А, которые расположены в некоторой ее области
@@ -16,34 +17,47 @@
 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0
+
 */
 
 #include<stdio.h>
 
 #pragma warning(disable: 4996)
 
-#define N 3
+#define N 20
 
 double Abs(double);
+system();
 
 int main(void) {
+
 	double ArrayA[N][N],
 		   ArrayB[N][N];
 
-	double tempI = 0,
-		   tempJ = 0,
-		   tempN = 0,
-		   tempM = 0,
-		   sum = 0;
+	double sum = 0;
 
 	int i = 0,
 		j = 0,
 		n = 0,
-		m = 0;
+		m = 0,
+		len = 0,
+		tempJ = -1,
+		tempN = 0,
+		tempM = 0;
+	
+	printf("Insert length of Array");
+	scanf("%d", &len);
 
-	printf("Insert elements of Array\n");
 	for (i = 0; i < N; i++) {
-		for (j = 0; j < N; j++) {
+		for(j = 0; j < N; j++) {
+			ArrayB[i][j] = 0;
+			ArrayA[i][j] = 0;
+		}
+	}
+
+	printf("\nInsert elements of Array\n");
+	for (i = 0; i < len; i++) {
+		for (j = 0; j < len; j++) {
 			if (!scanf("%lf", &ArrayA[i][j])) {
 				printf("Wrong Insert\n");
 				system("PAUSE");
@@ -52,33 +66,36 @@ int main(void) {
 		}
 	}
 
-	for (i = 0; i < N; i++) {
-		tempI = N;
-		for (j = 0; j < N; j++) {
-			tempJ = N;
-			for (n = 0; n < N; n++) {
-				for (m = 0; m < N; m++) {
-					if (tempI == 0) {
-						ArrayB[n][m] = ArrayA[0][j];
-					}
-					else if (tempJ == 0) {
-						ArrayB[n][m] = ArrayA[n - 1][0] + ArrayA[n - 1][m + 1];
-					}
-					else if (tempJ == N) {
-						ArrayB[n][m] = ArrayA[n - 1][m - 1] + ArrayA[n - 1][m];
-					}
-					ArrayB[n][m] = ArrayA[n - 1][m - 1] + ArrayA[n - 1][m + 1];
-					tempI--;
-					tempJ--;
+	for (i = 0; i < len; i++) {
+		for (j = 0; j < len; j++) {
+			for (n = i,tempJ=-1; n >= 0; n--) {
+
+                tempJ++;
+				if ((j - tempJ) < 0){
+				
+					m = 0;
+				}
+				else {
+					m = j - tempJ;
+				}
+				if((j+tempJ) >len-1){
+					tempN = len-1;
+				}
+				else {
+					tempN = j + tempJ;
+				}
+				for (; m <= tempN; m++) {
+					ArrayB[i][j] += Abs(ArrayA[n][m]); 
 				}
 			}
 		}
 	}
 
-	for (i = 0; i < N; i++) {
-		for (j = 0; j < n; j++) {
-			printf("%lf ", ArrayB[i][j]);
+	for (i = 0; i < len; i++) {
+		for (j = 0; j < len; j++) {
+			printf("%.3lf ", ArrayB[i][j]);
 		}
+		printf("\n");
 	}
 
 	system("PAUSE");
