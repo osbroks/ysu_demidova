@@ -3,10 +3,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#pragma warning(disable: 4996)
+#pragma warning(disable : 4996)
 #define PAUSE system("pause")
 
-int summOfElements(int *, int, int);
+int summOfElements(int *, int);
 
 int main(int argv, char *argc[]) {
 	int i = 0,
@@ -28,25 +28,23 @@ int main(int argv, char *argc[]) {
 	}
 
 	for (i = 0; i < array_length; i++) {
-		array_of_int[i] = rand() % 10;
-	}
-	for (i = 0; i < array_length; i++) {
-		printf("%d ", array_of_int[i]);
+		array_of_int[i] = rand() %10;
 	}
 
-	summ = summOfElements(array_of_int, array_length, summ);
+	summ = summOfElements(array_of_int, array_length);
 	printf("\nSumm = %d \n", summ);
 
 	PAUSE;
 	return;
 }
 
-int summOfElements(int *array_of_int, int array_length, int summ) {
-	if (array_length < 1) {
+int summOfElements(int *array_of_int, int array_length) {
+	int summ = 0;
+	if (array_length == 0) {
 		return summ;
 	}
 	else {
-		summ += summOfElements(array_of_int, array_length - 1, summ);
+		summ = summOfElements(array_of_int, array_length - 1) + array_of_int[array_length - 1];
 		return summ;
 	}
 }
