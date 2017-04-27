@@ -20,14 +20,6 @@ public class Drob {
         this.CZString = drobStr.split(" ");
     }
 
-    public int getChislitel(){
-        return chislitel;
-    }
-
-    public int getZnamenatel(){
-        return znamenatel;
-    }
-
     public Drob summDrob(Drob drob){
         Drob newDrob = new Drob();
         System.out.print("Summ: " + this.chislitel + "/" + this.znamenatel +
