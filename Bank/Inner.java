@@ -1,186 +1,84 @@
 /**
  * Created by hamas on 28.04.17.
  */
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
-public class Scn {
-    private final String filePath;
-    private final File file;
-    private List<String> inners = new ArrayList<>();
-    private List<String> newInners = new ArrayList<>();
-    private List<String> inn = new ArrayList<>();
-    private List<String> newInn = new ArrayList<>();
-    private FileWriter fileWriter;
+public class Inner {
+    private String name, sourName, fatherName, openDate;
+    private int innID, vid, summ;
+    private static String innerFilePath = "inner.txt";
+    private static String innFilePath = "inn.txt";
+    Random random = new Random();
 
-    Scn(String filePath){
-        this.filePath = filePath;
-        file = new File(filePath);
+    Inner(String name, String sourName, String fatherName, int vid, int summ){
+        this.name = name;
+        this.fatherName = fatherName;
+        this.sourName = sourName;
+        this.vid = vid;
+        this.summ = summ;
+        this.innID = random.nextInt(1000);
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.YYYY hh:mm:ss");
+        this.openDate = sdf.format(date);
     }
 
-    private void readInnerFile() {
-        String date;
-        try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()){
-                date = scanner.nextLine();
-                inners.add(date);
-            }
-            scanner.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("File not found" + ex);
+    int getSumm(){
+        return summ;
+    }
+    int getVid(){
+        return vid;
+    }
+    String getName(){
+        return name;
+    }
+    String getSourName(){
+        return sourName;
+    }
+    String getFatherName(){
+        return fatherName;
+    }
+    String getOpenDate(){
+        return openDate;
+    }
+    int getInnID(){
+        return innID;
+    }
+    static String getInnerFilePath(){
+        return innerFilePath;
+    }
+    static String getInnFilePath(){
+        return innFilePath;
+    }
+
+    public class Inn {
+        private int ID;
+        private float gp;
+        private boolean adding;
+
+        Inn(float gp, boolean adding){
+            this.gp = gp;
+            this.adding = adding;
+            this.ID = Inner.this.innID;
+        }
+
+        public String toString(){
+            return Inner.innFilePath;
+        }
+
+        public int getID(){
+            return ID;
+        }
+
+        public float getGp(){
+            return gp;
+        }
+
+        public boolean getAdding(){
+            return adding;
         }
     }
 
-    private void readInnFile() {
-        String date;
-        try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()){
-                date = scanner.nextLine();
-                inn.add(date);
-            }
-            scanner.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("File not found" + ex);
-        }
-    }
-
-    private void rewriteFile(List<String> list){
-        try{
-            fileWriter = new FileWriter(file);
-            for(String string: list){
-                string += "\n";
-                fileWriter.write(string);
-            }
-            fileWriter.close();
-        } catch (IOException ex){
-            System.out.println(ex);
-        }
-    }
-
-    void sortBySourName(){
-        readInnerFile();
-        Collections.sort(inners);
-        System.out.println(inners);
-    }
-
-    void getPercent(int ID){
-        StringBuilder stringBuilder = new StringBuilder();
-        String[] innerStrings, innStrings;
-        String innerString, innString;
-        int percent = 0;
-        readInnerFile();
-        readInnFile();
-        while(inners.iterator().hasNext()){
-            innerString = inners.iterator().next();
-            innerStrings = innerString.split(",");
-            if(Integer.parseInt(innerStrings[0]) == ID){
-                while(inn.iterator().hasNext()){
-                    innString = inn.iterator().next();
-                    innStrings = innString.split(",");
-                    if(Integer.parseInt(innStrings[0]) == ID){
-                        percent = Integer.parseInt(innStrings[1]);
-                    }
-                }
-                innerStrings[4] = Integer.toString(Integer.parseInt(innerStrings[4]) * percent/100);
-                for(String s: innerStrings){
-                    if(s == innerStrings[6]){
-                        stringBuilder.append(s);
-                        innerString = stringBuilder.toString();
-                        break;
-                    }
-                    stringBuilder.append(s).append(',');
-                }
-            }
-            newInners.add(innerString);
-        }
-        rewriteFile(newInners);
-        System.out.println(percent);
-    }
-
-    void addSumm(int ID ,int summ) {
-        StringBuilder sb = new StringBuilder();
-        String[] strings;
-        readInnerFile();
-        for(String string: inners) {
-            strings = string.split(",");
-            if(Integer.parseInt(strings[0]) == ID){
-                strings[4] = Integer.toString(Integer.parseInt(strings[4]) + summ);
-                for(String s: strings){
-                    if(s == strings[6]){
-                        sb.append(s);
-                        string = sb.toString();
-                        break;
-                    }
-                    sb.append(s).append(',');
-                }
-            }
-            newInners.add(string);
-        }
-        rewriteFile(newInners);
-    }
-
-    void deleteInner(int ID) {
-        String[] strings;
-        readInnerFile();
-        for (String string: inners) {
-            strings = string.split(",");
-            if (Integer.parseInt(strings[0]) != ID) {
-                newInners.add(string);
-            }
-        }
-        rewriteFile(newInners);
-    }
-
-    void deleteInn(int ID) {
-        String[] strings;
-        readInnFile();
-        for (String string: inn) {
-            strings = string.split(",");
-            if (Integer.parseInt(strings[0]) != ID) {
-                newInn.add(string);
-            }
-        }
-        rewriteFile(newInn);
-    }
-    void writeInnerToFile(Inner inner) {
-         String string = inner.getInnID()+ "," + inner.getSourName() + "," + inner.getName() + ","
-                 + inner.getFatherName() + "," + inner. getVid() + "," + inner.getSumm() + ","
-                 + inner.getOpenDate() + "\n";
-         try {
-             fileWriter = new FileWriter(file, true);
-             fileWriter.write(string);
-             fileWriter.close();
-         } catch (IOException ex) {
-             System.out.println(ex);
-         }
-
-         System.out.println(string);
-    }
-    void writeInnToFile(Inner.Inn inn) {
-        String string = inn.getID() + "," + inn.getGp() + "," + inn.getAdding() + "\n";
-        try {
-            fileWriter = new FileWriter(file, true);
-            fileWriter.write(string);
-            fileWriter.close();
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
-        System.out.println(string);
-    }
-    List<String> getInnersList(){
-        return inners;
-    }
-
-    List<String> getInnList(){
-        return inn;
-    }
-    @Override
-    public String toString(){
-        return filePath;
-    }
 }
