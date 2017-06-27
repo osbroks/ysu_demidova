@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="220" prefWidth="380" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lab8.Controller">
+   <children>
+      <Button layoutX="47.0" layoutY="33.0" mnemonicParsing="false" onAction="#button_1" prefHeight="10.0" prefWidth="31.0" text="1" />
+      <Button layoutX="85.0" layoutY="33.0" mnemonicParsing="false" onAction="#button_2" prefHeight="10.0" prefWidth="31.0" text="2" />
+      <Button layoutX="47.0" layoutY="65.0" mnemonicParsing="false" onAction="#button_3" prefHeight="10.0" prefWidth="31.0" text="3" />
+      <Button layoutX="85.0" layoutY="65.0" mnemonicParsing="false" onAction="#button_4" prefHeight="10.0" prefWidth="31.0" text="4" />
+      <Button layoutX="47.0" layoutY="100.0" mnemonicParsing="false" onAction="#button_5" prefHeight="10.0" prefWidth="31.0" text="5" />
+      <Button layoutX="85.0" layoutY="100.0" mnemonicParsing="false" onAction="#button_6" prefHeight="10.0" prefWidth="31.0" text="6" />
+      <Button layoutX="47.0" layoutY="132.0" mnemonicParsing="false" onAction="#button_7" prefHeight="10.0" prefWidth="31.0" text="7" />
+      <Button layoutX="85.0" layoutY="132.0" mnemonicParsing="false" onAction="#button_8" prefHeight="10.0" prefWidth="31.0" text="8" />
+      <Button layoutX="47.0" layoutY="166.0" mnemonicParsing="false" onAction="#button_9" prefHeight="10.0" prefWidth="31.0" text="9" />
+      <Label fx:id="labelTable" layoutX="288.0" layoutY="25.0" prefHeight="16.0" prefWidth="31.0" text="Num" />
+      <Button layoutX="85.0" layoutY="166.0" mnemonicParsing="false" onAction="#button_ok" prefHeight="26.0" prefWidth="38.0" text="OK" />
+      <ListView fx:id="multiplyTable" layoutX="140.0" layoutY="47.0" prefHeight="145.0" prefWidth="200.0" />
+      <Label layoutX="155.0" layoutY="25.0" text="Multiply table for" />
+   </children>
+</AnchorPane>
